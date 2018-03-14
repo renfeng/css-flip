@@ -1,0 +1,190 @@
+<!--
+@license
+MIT License
+
+Copyright (c) 2017 Frank R.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`<css-flip>` displays a flip animation. Inspired by, and code (with modification)
+copied from https://codepen.io/darkwing/pen/bCali
+
+@group CSS animation
+@element css-flip
+@demo
+@hero hero.svg
+-->
+
+<dom-module id="css-flip">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+
+			#container {
+				-webkit-perspective: 1000px;
+				-moz-perspective: 1000px;
+				-o-perspective: 1000px;
+				perspective: 1000px;
+
+				height: 100%;
+				box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, .25);
+				border-radius: 5px;
+			}
+
+			#container:hover .flipper,
+			#container.hover .flipper {
+				-webkit-transform: rotateY(180deg);
+				-moz-transform: rotateY(180deg);
+				-o-transform: rotateY(180deg);
+				transform: rotateY(180deg);
+			}
+
+			/*
+			 * https://codepen.io/darkwing/pen/bCali
+			 */
+			#container .flipper {
+			/*
+				-webkit-transition: -webkit-transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+				-webkit-transform-style: preserve-3d;
+
+				transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+				transform-style: preserve-3d;
+			*/
+
+				-webkit-transition: 0.6s;
+				-webkit-transform-style: preserve-3d;
+
+				-moz-transition: 0.6s;
+				-moz-transform-style: preserve-3d;
+
+				-o-transition: 0.6s;
+				-o-transform-style: preserve-3d;
+
+				transition: 0.6s;
+				transform-style: preserve-3d;
+
+				position: relative;
+				height: 100%;
+			}
+
+			#container .front,
+			#container .back {
+				-webkit-backface-visibility: hidden;
+				-moz-backface-visibility: hidden;
+				-o-backface-visibility: hidden;
+				backface-visibility: hidden;
+
+				position: absolute;
+
+				height: 100%;
+				width: 100%;
+
+				border-radius: 5px;
+				box-sizing: border-box;
+
+				display: grid;
+				align-items: center;
+				text-align: center;
+			}
+
+			#container .back {
+				-webkit-transform: rotateY(180deg);
+				-moz-transform: rotateY(180deg);
+				-o-transform: rotateY(180deg);
+				transform: rotateY(180deg);
+			}
+
+			#container .back {
+				/* IE11 workaround to show back side */
+				-ms-transform: rotateY(180deg);
+			}
+
+			#container:hover .back,
+			#container.hover .back {
+				/* IE11 workaround to show back side */
+				-ms-transform: rotateY(360deg);
+				z-index: 0;
+			}
+		</style>
+		<div id="container" on-tap="_flip" on-mouseover="_upsideDown" on-mouseout="_flipBack">
+			<div class="flipper">
+				<div class="front">
+					<slot name="front"></slot>
+				</div>
+				<div class="back">
+					<slot name="back"></slot>
+				</div>
+			</div>
+		</div>
+	</template>
+	<script>
+		class CSSFlip extends Polymer.mixinBehaviors([], Polymer.Element) {
+			static get is() { return "css-flip"; }
+
+			static get properties() {
+				return {
+					/**
+					 * Indicator of whether it is flipped
+					 */
+					flipped: {
+						type: Boolean,
+						value: false,
+						notify: true,
+					}
+				};
+			}
+
+			static get observers() {
+				return [
+					"_flippedObserver(flipped)",
+				];
+			}
+
+			_flippedObserver(flipped) {
+				if (flipped) {
+					this.$.container.classList.add("hover");
+				} else {
+					this.$.container.classList.remove("hover");
+				}
+			}
+
+			_flip() {
+				this.flipped = !this.flipped;
+			}
+
+			_upsideDown() {
+				/*
+				 * https://stackoverflow.com/questions/15486376/javascript-function-onhover-in-div
+				 * https://stackoverflow.com/questions/24743518/how-can-i-handle-a-hover-the-polymer-way-without-external-libraries
+				 */
+				this.flipped = true;
+			}
+
+			_flipBack() {
+				this.flipped = false;
+			}
+		}
+		window.customElements.define(CSSFlip.is, CSSFlip);
+	</script>
+</dom-module>

@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "classes": [
+    {
+      "description": "",
+      "summary": "",
+      "path": "css-flip.html",
+      "properties": [],
+      "methods": [],
+      "staticMethods": [],
+      "demos": [],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 154,
+          "column": 2
+        },
+        "end": {
+          "line": 156,
+          "column": 3
+        }
+      },
+      "privacy": "public",
+      "name": "CSSFlip"
+    }
+  ]
+}

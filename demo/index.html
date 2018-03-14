@@ -1,0 +1,150 @@
+<!doctype html>
+<!--
+@license
+MIT License
+
+Copyright (c) 2017 Frank R.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+	<title>css-flip</title>
+
+	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+	<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+	<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+	<link rel="import" href="../css-flip.html">
+
+	<custom-style><style is="custom-style" include="demo-pages-shared-styles"></style></custom-style>
+
+</head>
+
+<body unresolved>
+
+<div class="vertical-section-container centered">
+	<h3>Flip on hover or touch - code copied from https://codepen.io/darkwing/pen/bCali</h3>
+	<demo-snippet class="centered-demo">
+		<template>
+			<style>
+				css-flip {
+					width: 320px;
+					height: 427px;
+				}
+
+				.front {
+					/* Specify a background-image url to provide an image for the front side . */
+					background: url(http://davidwalsh.name/demo/dwflip.jpg) 0 0 no-repeat;
+					height: 100%;
+				}
+
+				.back {
+					background: #f8f8f8;
+					height: 100%;
+				}
+
+				.front .name {
+					font-size: 2em;
+					display: inline-block;
+					background: rgba(33, 33, 33, 0.9);
+					color: #f8f8f8;
+					font-family: Courier;
+					padding: 5px 10px;
+					border-radius: 5px;
+					bottom: 60px;
+					left: 25%;
+					position: absolute;
+					text-shadow: 0.1em 0.1em 0.05em #333;
+
+					-webkit-transform: rotate(-20deg);
+					-moz-transform: rotate(-20deg);
+					-o-transform: rotate(-20deg);
+					transform: rotate(-20deg);
+				}
+
+				.back-logo {
+					position: absolute;
+					top: 40px;
+					left: 90px;
+					width: 160px;
+					height: 117px;
+					background: url(http://davidwalsh.name/demo/logo.png) 0 0 no-repeat;
+				}
+
+				.back-title {
+					font-weight: bold;
+					color: #00304a;
+					position: absolute;
+					top: 180px;
+					left: 0;
+					right: 0;
+					text-align: center;
+					text-shadow: 0.1em 0.1em 0.05em #acd7e5;
+					font-family: Courier;
+					font-size: 2em;
+				}
+
+				.back p {
+					position: absolute;
+					bottom: 40px;
+					left: 0;
+					right: 0;
+					text-align: center;
+					padding: 0 20px;
+					font-family: arial;
+					line-height: 2em;
+				}
+			</style>
+			<css-flip>
+				<div class="front" slot="front">
+					<span class="name">David Walsh</span>
+				</div>
+				<div class="back" slot="back">
+					<div class="back-logo"></div>
+					<div class="back-title">@davidwalshblog</div>
+					<p>Mozilla Web Developer, MooTools & jQuery Consultant, MooTools Core Developer, Javascript Fanatic, CSS Tinkerer, PHP Hacker, and web lover.</p>
+				</div>
+			</css-flip>
+		</template>
+	</demo-snippet>
+
+	<h3>Flip programmatically</h3>
+	<demo-snippet class="centered-demo">
+		<template>
+			<css-flip id="flip2">
+				<p slot="front">Front</p>
+				<p slot="back">Back</p>
+			</css-flip>
+			<script>
+				window.setInterval(function() {
+					flip2.flipped = !flip2.flipped;
+				}, 1000);
+			</script>
+		</template>
+	</demo-snippet>
+</div>
+
+</body>
+
+</html>

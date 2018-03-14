@@ -1,0 +1,23 @@
+{
+  "name": "css-flip",
+  "version": "0.0.1",
+  "homepage": "https://github.com/renfeng/css-flip",
+  "authors": [
+    "Frank R. <renfeng.cn@gmail.com>"
+  ],
+  "description": "A flip animation implemented with CSS animation",
+  "main": "css-flip.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "iron-component-page": "^3.0.1",
+    "iron-demo-helpers": "^2.1.0"
+  },
+  "devDependencies": {}
+}
